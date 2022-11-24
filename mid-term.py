@@ -9,18 +9,18 @@ def login():
     password = input_pasw.get()
 
     if (islogin):
-        output.configure(text="you are already logged in", fg="red")
+        cout.configure(text="you are already logged in", fg="red")
         return
     else:
 
         with open("info.json") as f:
             users_dct = json.load(f)
         if user in users_dct and users_dct[user] == password:
-            output.configure(text="welcome", fg="green")
+            cout.configure(text="welcome", fg="green")
             islogin = user
             logincount()
         else:
-            output.configure(text="wrong username or password", fg="blue")
+            cout.configure(text="wrong username or password", fg="blue")
 
 
 def logincount():
@@ -42,46 +42,46 @@ def submit():
     with open("info.json") as f:
         users_dct = json.load(f)
     if user in users_dct:
-        output_submit.configure(text="username already exisZ", fg="red")
+        cout_submit.configure(text="username already exisZ", fg="red")
     elif len (password) < 5 or password.isalpha():
-        output_submit.configure(text="please correct your password", fg="red")
+        cout_submit.configure(text="please correct your password", fg="red")
     else:
         users_dct[user] = password
         with open("info.json", "w") as f:
             json.dump(users_dct, f)
-        output_submit.configure(text="submit is done", fg="green")
+        cout_submit.configure(text="submit is done", fg="green")
 
 
 def showlogincount():
     global islogin
 
     if islogin != "admin":
-        output_count.configure(text="you are not allowed to enter", fg="red")
+        cout_count.configure(text="you are not allowed to enter", fg="red")
         return
     else:
         with open("logincount.json") as f:
             logincount = json.load(f)
-        output_count.configure(text=logincount)
+        cout_count.configure(text=logincount)
 
 
 def logout():
     global islogin
     if not islogin:
-        output_logout.configure(text="you are already logged out", fg="red")
+        cout_logout.configure(text="you are already logged out", fg="red")
     else:
         confirm = input("Are you want to delete your account? y/n")
         if confirm == "y":
             islogin = False
-            output_logout.configure(text="logged out successfully", fg="green")
+            cout_logout.configure(text="logged out successfully", fg="green")
         else:
-            output_logout.configure(text="logout canceled", fg="red")
+            cout_logout.configure(text="logout canceled", fg="red")
 
 
 def delete():
     global islogin
 
     if not (islogin):
-        output_btn.configure(text="login first in order to delete your account", fg="red")
+        cout_btn.configure(text="login first in order to delete your account", fg="red")
     else:
         with open("info.json") as f:
             users_dct = json.load(f)
@@ -90,15 +90,15 @@ def delete():
             users_dct.pop(islogin)
             with open("info.json", "w") as f:
                 json.dump(users_dct, f)
-            output_Delete.configure(text="your account is deleted", fg="green")
+            cout_Delete.configure(text="your account is deleted", fg="green")
         else:
-            output_Delete.configure(text="delete was canceled", fg="red")
+            cout_Delete.configure(text="delete was canceled", fg="red")
 
 
 def userslist():
     global islogin
     if islogin != "admin":
-        output_userslist.configure(text="you are not allowed to enter", fg="red")
+        cout_userslist.configure(text="you are not allowed to enter", fg="red")
         return
     else:
         with open("info.json") as f:
@@ -135,8 +135,8 @@ lbl_pasw.pack()
 input_pasw = Tk.Entry(win, width=35)
 input_pasw.pack()
 
-output_submit = Tk.Label(win, text=" ")
-output_submit.pack()
+cout_submit = Tk.Label(win, text=" ")
+cout_submit.pack()
 
 Tk.Button(win, text="Submit", command=submit).pack()
 
@@ -160,8 +160,8 @@ lbl_pasw.pack()
 input_pasw = Tk.Entry(win, width=35)
 input_pasw.pack()
 
-output = Tk.Label(win, text="")
-output.pack()
+cout = Tk.Label(win, text="")
+cout.pack()
 
 Tk.Button(win, text="login", command=login).pack()
 
@@ -170,26 +170,26 @@ Tk.Button(win, text="login", command=login).pack()
 
 
 ###################################
-output_logout = Tk.Label(win, text=" ")
-output_logout.pack()
+cout_logout = Tk.Label(win, text=" ")
+cout_logout.pack()
 
 Tk.Button(win, text="logout", command=logout).pack()
 
 ###################################
-output_Delete = Tk.Label(win, text=" ")
-output_Delete.pack()
+cout_Delete = Tk.Label(win, text=" ")
+cout_Delete.pack()
 
 Tk.Button(win, text="Delete", command=delete).pack()
 #####################################
-output_count = Tk.Label(win, text=" ")
-output_count.pack()
+cout_count = Tk.Label(win, text=" ")
+cout_count.pack()
 
 Tk.Button(win, text="login count", command=showlogincount).pack()
 
 ###################################
 
-output_userslist = Tk.Label(win, text=" ")
-output_userslist.pack()
+cout_userslist = Tk.Label(win, text=" ")
+cout_userslist.pack()
 
 Tk.Button(win, text="users list", command=userslist).pack()
 
